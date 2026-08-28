@@ -3,7 +3,7 @@ import { Sparkles, MessageSquare, X, Send, Building, Bot, User, RotateCcw, Chevr
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 
-const API_URL = 'http://localhost:5000/api';
+const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000/api';
 
 const QUICK_PROMPTS = [
   { id: 'search', label: 'Tafuta nyumba Dar es Salaam', icon: Building, query: 'Natafuta nyumba au apartment ya kupanga Dar es Salaam yenye vyumba 2' },
