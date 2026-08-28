@@ -250,7 +250,6 @@ const verifyNida = async (req, res, next) => {
       return res.status(400).json({ success: false, message: validation.message });
     }
 
-    // Check if NIDA already used by another user
     const existingNida = await prisma.user.findFirst({
       where: {
         nidaNumber: validation.cleanNida,
@@ -301,4 +300,84 @@ const verifyNida = async (req, res, next) => {
   }
 };
 
-module.exports = { register, login, googleAuth, getMe, verifyNida };
+// ADMIN: Get All Users (Manage Users)
+const getAllUsers = async (req, res, next) => {
+  try {
+    const { role, search } = req.query;
+    const where = {};
+
+    if (role) {
+      where.role = role;
+    }
+
+    if (search) {
+      where.OR = [
+        { firstName: { contains: search } },
+        { lastName: { contains: search } },
+        { email: { contains: search } },
+        { phone: { contains: search } },
+        { nidaNumber: { contains: search } }
+      ];
+    }
+
+    const users = await prisma.user.findMany({
+      where,
+      select: {
+        id: true,
+        firstName: true,
+        lastName: true,
+        email: true,
+        phone: true,
+        role: true,
+        profileImage: true,
+        nidaNumber: true,
+        isNidaVerified: true,
+        emergencyContact: true,
+        isActive: true,
+        createdAt: true
+      },
+      orderBy: { createdAt: 'desc' }
+    });
+
+    res.json({ success: true, data: { users, count: users.length } });
+  } catch (error) {
+    next(error);
+  }
+};
+
+// ADMIN: Toggle User Active Status (Suspend / Activate)
+const toggleUserStatus = async (req, res, next) => {
+  try {
+    const { id } = req.params;
+    const { isActive } = req.body;
+
+    const user = await prisma.user.findUnique({ where: { id } });
+    if (!user) {
+      return res.status(404).json({ success: false, message: 'Mtumiaji hajakatika.' });
+    }
+
+    const updatedUser = await prisma.user.update({
+      where: { id },
+      data: { isActive: Boolean(isActive) },
+      select: { id: true, firstName: true, lastName: true, email: true, role: true, isActive: true }
+    });
+
+    res.json({
+      success: true,
+      message: `Akaunti ya ${updatedUser.firstName} ${updatedUser.lastName} sasa ni ${updatedUser.isActive ? 'Active (Inafanya kazi)' : 'Suspended (Imesitishwa)'}.`,
+      data: { user: updatedUser }
+    });
+  } catch (error) {
+    next(error);
+  }
+};
+
+module.exports = {
+  register,
+  login,
+  googleAuth,
+  getMe,
+  verifyNida,
+  getAllUsers,
+  toggleUserStatus
+};
