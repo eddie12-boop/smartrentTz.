@@ -4,6 +4,8 @@ import { Home, Menu, Moon, Sun, Globe, X } from 'lucide-react'
 import { useTranslation } from 'react-i18next'
 import { useTheme } from '../contexts/ThemeContext'
 import AIAssistantModal from '../components/AIAssistantModal'
+import logoTransparent from '../assets/logo-transparent.png'
+import logoDarkTransparent from '../assets/logo-dark-transparent.png'
 
 export default function MainLayout() {
   const { t, i18n } = useTranslation();
@@ -50,8 +52,8 @@ export default function MainLayout() {
           <div className="flex justify-between items-center h-16">
             <div className="flex items-center">
               <Link to="/" className="flex items-center gap-2" aria-label="SmartRent TZ — Home">
-                <Home className="h-8 w-8 text-accent" aria-hidden="true" />
-                <span className="font-bold text-xl text-primary dark:text-white tracking-tight">SmartRent TZ</span>
+                <img src={logoTransparent} alt="SmartRent TZ" className="h-10 w-auto object-contain dark:hidden" />
+                <img src={logoDarkTransparent} alt="SmartRent TZ" className="h-10 w-auto object-contain hidden dark:block" />
               </Link>
             </div>
 
@@ -171,8 +173,7 @@ export default function MainLayout() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-1 md:grid-cols-4 gap-8">
           <div className="space-y-4">
             <div className="flex items-center gap-2">
-              <Home className="h-6 w-6 text-accent" aria-hidden="true" />
-              <span className="font-bold text-lg">SmartRent TZ</span>
+              <img src={logoDarkTransparent} alt="SmartRent TZ" className="h-10 w-auto object-contain" />
             </div>
             <p className="text-gray-400 text-sm">{t('footer.desc')}</p>
           </div>

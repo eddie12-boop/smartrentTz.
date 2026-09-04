@@ -6,6 +6,7 @@ import axios from 'axios';
 import { Link, useNavigate } from 'react-router-dom';
 import { Home, X } from 'lucide-react';
 import { GoogleLogin } from '@react-oauth/google';
+import logoTransparent from '../assets/logo-transparent.png';
 
 const loginSchema = z.object({
   email: z.string().email({ message: "Barua pepe si sahihi" }),
@@ -91,9 +92,9 @@ export default function LoginPage() {
     <div className="min-h-[calc(100vh-64px)] bg-gray-50 flex flex-col justify-center py-12 sm:px-6 lg:px-8 font-sans">
       <div className="sm:mx-auto sm:w-full sm:max-w-md">
         <div className="flex justify-center">
-          <div className="bg-primary p-3.5 rounded-2xl shadow-lg flex items-center justify-center">
-            <Home className="h-8 w-8 text-accent" />
-          </div>
+          <Link to="/">
+            <img src={logoTransparent} alt="SmartRent TZ" className="h-16 w-auto object-contain hover:opacity-90 transition-opacity" />
+          </Link>
         </div>
         <h2 className="mt-5 text-center text-2xl font-extrabold text-gray-900">
           Ingia Kwenye Akaunti Yako
