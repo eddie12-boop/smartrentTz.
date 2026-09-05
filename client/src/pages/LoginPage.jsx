@@ -13,7 +13,7 @@ const loginSchema = z.object({
   password: z.string().min(6, { message: "Nenosiri lazima liwe na angalau herufi 6" })
 });
 
-const API_URL = 'http://localhost:5000/api';
+import { API_URL } from '../config/api';
 
 export default function LoginPage() {
   const [error, setError] = useState('');

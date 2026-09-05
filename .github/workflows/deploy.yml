@@ -35,6 +35,8 @@ jobs:
           npm ci || npm install
 
       - name: Build React Client
+        env:
+          VITE_API_URL: https://smartrenttz-production.up.railway.app/api
         run: |
           cd client
           npm run build

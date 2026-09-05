@@ -8,7 +8,7 @@ import { Home, X, Key, Building2, Briefcase, ShieldCheck } from 'lucide-react';
 import { GoogleLogin } from '@react-oauth/google';
 import logoTransparent from '../assets/logo-transparent.png';
 
-const API_URL = 'http://localhost:5000/api';
+import { API_URL } from '../config/api';
 
 const registerSchema = z.object({
   firstName: z.string().min(2, "Jina la kwanza linahitajika (angalau herufi 2)"),

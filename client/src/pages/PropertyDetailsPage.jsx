@@ -17,7 +17,7 @@ let DefaultIcon = L.icon({
 });
 L.Marker.prototype.options.icon = DefaultIcon;
 
-const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000/api';
+import { API_URL } from '../config/api';
 
 // UNDERSTANDABLE — Accessible toast notification (replaces alert())
 function Toast({ message, type = 'info', onClose }) {

@@ -3,7 +3,7 @@ import { Home, Users, Building, FileText, Settings, LogOut, ShieldCheck, Activit
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import axios from 'axios';
 
-const API_URL = 'http://localhost:5000/api';
+import { API_URL } from '../config/api';
 
 export default function AdminDashboard() {
   const user = JSON.parse(localStorage.getItem('user') || '{}');
